@@ -29,18 +29,17 @@
 
 <main>
   <div class="wrap hero">
-    <div class="layer badge is-selected" data-select="AG logo" data-min="180" data-max="440" title="Drag the frame to move it · pull a frame corner to resize · double-click the frame to reset">
-      <span class="frame"><svg class="vec" viewBox="205 135 670 810" role="img" aria-label="AG logo, editable with a pen tool"></svg></span>
-      <div class="fill game-bar">
-        <span class="game-status" aria-live="polite">Drag any point</span>
-        <button type="button" class="play">Play</button>
-        <button type="button" class="reset" disabled>Reset</button>
+    <div class="builder" aria-hidden="true">
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i></div>
+        <div class="page"></div>
+        <span class="b-cursor"><svg class="arrow" viewBox="0 0 16 20"><path d="M1 1 L15 10 L8.5 11.5 L5 18 Z"/></svg><svg class="cross" viewBox="0 0 20 20"><path d="M10 1 V19 M1 10 H19"/></svg></span>
       </div>
     </div>
     <p class="sticker status">Senior Product Designer</p>
     <h1>I break down complex systems so <span class="word">everyday people</span> don't have to.</h1>
     <div class="actions">
-      <a class="btn" href="#work">See selected work</a>
+      <a class="btn" href="#work">See work</a>
       <a class="btn ghost" href="#contact">Get in touch</a>
     </div>
   </div>
@@ -49,7 +48,7 @@
     <div class="proof" aria-label="At a glance">
       <div><b>7 yrs</b><span>designing digital products, from first concept to launch</span></div>
       <div><b>600K+</b><span>people using products I've designed</span></div>
-      <div><b>2</b><span>design systems built and owned, at GoReact and Rehlko</span></div>
+      <div><b>3</b><span>design systems built and managed</span></div>
       <div><b>$400K+</b><span>in 2025 revenue from growth flows I designed</span></div>
     </div>
   </div>
@@ -57,73 +56,64 @@
   <section id="work">
     <div class="wrap">
       <div class="section-head">
-        <p class="label">Selected work</p>
-        <h2>Four projects, each with a measurable result</h2>
+        <p class="label">Work</p>
+        <h2>Selected case studies</h2>
       </div>
 
       <div class="cases">
         <a class="case" href="ai-assistant.html">
           <div class="case-body">
-            <div class="case-metric"><b>~72×</b><span>faster time to feedback for learners</span></div>
+            <p class="label">GoReact</p>
             <h3>An AI assistant learners and instructors trust</h3>
-            <p>A hybrid AI and instructor model that gives learners feedback right after they practice and gives instructors their time back.</p>
-            <dl class="spec">
-              <dt>Company</dt><dd>GoReact</dd>
-              <dt>Role</dt><dd>Lead UX Designer</dd>
-              <dt>Team</dt><dd>1 PM, 6 engineers, 1 QA</dd>
-            </dl>
+            <p class="case-shift"><s>Days of waiting</s> <span>feedback in minutes</span></p>
             <span class="go">Read case study</span>
           </div>
           <div class="case-art shot" aria-hidden="true" data-select="AI Assistant">
-            <img class="shot-img" src="images/projects/ai-assistant.jpg" alt="" width="1600" height="734" loading="lazy">
+            <img class="shot-img" src="images/projects/ai-assistant.jpg" alt="" width="1100" height="1167" loading="lazy">
+            <div class="fx-stack">
+              <div class="fx fx-search">
+                <div class="fx-field"><span class="fx-icon"></span><span class="fx-query"></span><span class="fx-caret"></span></div>
+                <p><i style="--w:22%"></i><mark></mark><i style="--w:30%"></i></p>
+                <p><i style="--w:48%"></i><i style="--w:26%"></i></p>
+                <p><i style="--w:12%"></i><i style="--w:20%"></i><mark></mark></p>
+                <p><mark></mark><i style="--w:40%"></i></p>
+              </div>
+              <div class="fx fx-pace">
+                <div class="fx-pace-head"><b></b><i></i></div>
+                <svg viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="10" width="100" height="11"/><path pathLength="1" d="M0 20 C8 8 15 6 23 15 S38 29 47 18 S62 4 71 13 S87 27 100 11"/></svg>
+              </div>
+              <div class="fx fx-timeline">
+                <div class="fx-bubble"><span class="fx-spark"></span><span class="fx-lines"><i></i><i></i></span></div>
+                <div class="fx-track"><span class="fx-fill"></span><span class="fx-mark" style="--at:22%"></span><span class="fx-mark" style="--at:51%"></span><span class="fx-mark" style="--at:78%"></span><span class="fx-head"></span></div>
+                <div class="fx-dots"><i style="--x:8%;--y:30%;--c:var(--accent)"></i><i style="--x:19%;--y:65%;--c:var(--sun)"></i><i style="--x:34%;--y:30%;--c:var(--teal)"></i><i style="--x:47%;--y:65%;--c:var(--accent)"></i><i style="--x:61%;--y:30%;--c:var(--sun)"></i><i style="--x:74%;--y:65%;--c:var(--teal)"></i><i style="--x:88%;--y:30%;--c:var(--accent)"></i></div>
+              </div>
+            </div>
           </div>
         </a>
 
         <a class="case" href="redesign.html">
           <div class="case-body">
-            <div class="case-metric"><b>100%</b><span>user adoption, with satisfaction up ~30%</span></div>
+            <p class="label">GoReact</p>
             <h3>Redesigning a platform so it could grow into new markets</h3>
-            <p>I proposed a system-level redesign of GoReact's navigation, feedback tools and design system to replace one-off fixes, and it opened the door to markets beyond higher ed.</p>
-            <dl class="spec">
-              <dt>Company</dt><dd>GoReact</dd>
-              <dt>Role</dt><dd>Lead UX Designer, design system owner</dd>
-              <dt>Team</dt><dd>1 PM, 6 engineers, 1 QA</dd>
-            </dl>
+            <p class="case-shift"><s>One-off patches</s> <span>a platform everyone adopted</span></p>
             <span class="go">Read case study</span>
           </div>
-          <div class="case-art" aria-hidden="true" data-select="Platform redesign">
-            <svg viewBox="0 0 460 300">
-              <rect class="art-surface" x="10" y="10" width="440" height="280" rx="12"/>
-              <rect class="art-accent" x="30" y="30" width="54" height="9" rx="4.5"/>
-              <rect class="art-muted" x="94" y="30" width="54" height="9" rx="4.5"/>
-              <rect class="art-muted" x="158" y="30" width="70" height="9" rx="4.5"/>
-              <rect class="art-line" x="290" y="24" width="140" height="22" rx="11" stroke-width="1.5"/>
-              <rect class="art-muted" x="304" y="32" width="60" height="6" rx="3"/>
-              <g>
-                <rect class="art-soft" x="30" y="66" width="122" height="96" rx="8"/>
-                <rect class="art-soft" x="166" y="66" width="122" height="96" rx="8"/>
-                <rect class="art-soft" x="302" y="66" width="128" height="96" rx="8"/>
-                <rect class="art-accent" x="42" y="140" width="60" height="8" rx="4"/>
-                <rect class="art-muted" x="178" y="140" width="60" height="8" rx="4"/>
-                <rect class="art-muted" x="314" y="140" width="60" height="8" rx="4"/>
-                <rect class="art-soft" x="30" y="176" width="122" height="96" rx="8"/>
-                <rect class="art-soft" x="166" y="176" width="122" height="96" rx="8"/>
-                <rect class="art-line" x="302" y="176" width="128" height="96" rx="8" stroke-width="1.5" stroke-dasharray="5 5"/>
-              </g>
-            </svg>
+          <div class="case-art shot compare" aria-hidden="true" data-select="Platform redesign">
+            <div class="cmp">
+              <img class="cmp-new" src="images/projects/redesign.jpg" alt="" width="1400" height="857" loading="lazy">
+              <div class="cmp-old"><img src="images/projects/redesign-before.jpg" alt="" width="1100" height="714" loading="lazy"></div>
+              <span class="cmp-line"><i></i></span>
+              <span class="cmp-tag cmp-before">Before</span>
+              <span class="cmp-tag cmp-after">After</span>
+            </div>
           </div>
         </a>
 
         <a class="case" href="plg.html">
           <div class="case-body">
-            <div class="case-metric"><b>$400K+</b><span>Advanced package revenue in 2025</span></div>
-            <h3>Turning a sales-led product into a self-serve one</h3>
-            <p>I designed permission-aware upgrade paths, feature signage and a free trial so users could find value and buy without waiting on a sales call.</p>
-            <dl class="spec">
-              <dt>Company</dt><dd>GoReact</dd>
-              <dt>Role</dt><dd>Lead UX Designer, conversion design</dd>
-              <dt>Team</dt><dd>1 PM, 6 engineers, 1 QA</dd>
-            </dl>
+            <p class="label">GoReact</p>
+            <h3>Turning a sales&#8209;led product into a self-serve one</h3>
+            <p class="case-shift"><s>Sales calls only</s> <span>self-serve upgrades</span></p>
             <span class="go">Read case study</span>
           </div>
           <div class="case-art" aria-hidden="true" data-select="Product-led growth">
@@ -151,14 +141,9 @@
 
         <a class="case" href="design-system.html">
           <div class="case-body">
-            <div class="case-metric"><b>&lt; 1 hr</b><span>target onboarding time for a new designer</span></div>
+            <p class="label">Rehlko (formerly Kohler Energy)</p>
             <h3>Rearchitecting a design system for energy management apps</h3>
-            <p>Kohler's home energy apps kept components, projects and discovery in single Figma files that got slower as they grew. I restructured them so designers can find what they need and start a project in minutes.</p>
-            <dl class="spec">
-              <dt>Company</dt><dd>Rehlko (formerly Kohler Energy)</dd>
-              <dt>Role</dt><dd>Product Designer, design system owner</dd>
-              <dt>Users</dt><dd>Dealers, technicians, homeowners</dd>
-            </dl>
+            <p class="case-shift"><s>Cluttered Figma files</s> <span>productive in under an hour</span></p>
             <span class="go">Read case study</span>
           </div>
           <div class="case-art" aria-hidden="true" data-select="Design system">
@@ -203,12 +188,12 @@
       </div>
       <div class="more">
         <article>
-          <span class="sticker">Under NDA</span>
+          <span class="sticker sun">Under NDA</span>
           <h3>Cell Kit auto-renewal</h3>
           <p>An in-app renewal workflow that takes the friction out of keeping connected generators online. Rehlko.</p>
         </article>
         <article>
-          <span class="sticker">Under NDA</span>
+          <span class="sticker sun">Under NDA</span>
           <h3>Remote monitoring onboarding</h3>
           <p>A simpler hardware-to-app setup for homeowners and dealers connecting backup power systems. Rehlko.</p>
         </article>
@@ -266,7 +251,7 @@
         <article>
           <div class="where">
             <h3>Rehlko</h3>
-            <p class="label">Home Energy · Product Designer</p>
+            <p class="label">Home Energy · Senior Product Designer</p>
           </div>
           <ul>
             <li>Own the design system for the Kohler Energy Management apps, which dealers, technicians and homeowners use to monitor and control backup power.</li>
@@ -277,7 +262,7 @@
         <article>
           <div class="where">
             <h3>GoReact</h3>
-            <p class="label">Lead UX Designer</p>
+            <p class="label">Senior Product UX Designer</p>
           </div>
           <ul>
             <li>Led design for the AI Assistant, which 350K+ users adopted and which became the company's core value proposition.</li>
@@ -325,6 +310,7 @@
   });
 </script>
 <script src="site.js" defer></script>
-<script src="logo-game.js" defer></script>
+<script src="builder.js" defer></script>
+<script src="card-motion.js" defer></script>
 </body>
 </html>
