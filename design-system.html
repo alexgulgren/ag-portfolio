@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Design System Rearchitecture · Alex Gulgren</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400;500&family=Geist+Mono:wght@500&display=swap">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/favicon.png">
+<link rel="stylesheet" href="styles.css">
+<style>:root{padding-block:env(safe-area-inset-top,0px) env(safe-area-inset-bottom,0px)} body{margin:0}</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">Alex Gulgren</a>
+    <nav class="nav" aria-label="Main"><a href="index.html#work">Work</a><a href="index.html#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap cs-hero">
+    <a class="back" href="index.html#work">← All work</a>
+    <p class="label">Rehlko · Design systems · Product Designer</p>
+    <h1>Rearchitecting a design system for energy management apps</h1>
+    <p class="lede">Rehlko's Home Energy apps let dealers, technicians and homeowners monitor and control generators and transfer switches. The design files behind them had become slow, cluttered and hard to search. I restructured the whole Figma ecosystem so designers can find what they need and start new work in minutes.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="meta">
+      <div><p class="label">Role</p><p>Product Designer, design system owner</p></div>
+      <div><p class="label">Partner</p><p>Lead Product Designer</p></div>
+      <div><p class="label">Products</p><p>Kohler Energy Management apps</p></div>
+      <div><p class="label">Tools</p><p>Figma</p></div>
+    </div>
+  </div>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Targets</p><h2>What success looks like</h2></div>
+      <div class="outcomes">
+        <div><b>&lt; 1 hr</b><span>for a new designer to get up to speed</span></div>
+        <div><b>5 min</b><span>to start a project with a single-screen change</span></div>
+        <div><b>Fewer</b><span>detached components across product files</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Context</p><h2>The problem</h2></div>
+      <div class="prose">
+        <p>When I joined, each app had one Figma file holding everything: components, projects, discovery, archives and stray pages from several designers.</p>
+        <ul>
+          <li><strong>Scale.</strong> Files slowed down and glitched as pages piled up, and every new project raised the risk of errors.</li>
+          <li><strong>Findability.</strong> Inconsistent names and projects nested inside pages made past work hard to search and reuse.</li>
+          <li><strong>Efficiency.</strong> Incomplete components meant designers rebuilt screens from scratch, which also slowed onboarding.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Process</p><h2>How I got buy-in</h2></div>
+      <div class="prose">
+        <ol class="steps">
+          <li><span><strong>Prototyped the structure.</strong> I built a demo Figma space showing a cleaner organization model.</span></li>
+          <li><span><strong>Pitched it.</strong> I walked the lead designer through the model before changing anything.</span></li>
+          <li><span><strong>Migrated.</strong> I moved every file to its designated location.</span></li>
+          <li><span><strong>Audited.</strong> I reviewed global and local components to find gaps and plan what to build next.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Solution</p><h2>The new structure</h2></div>
+      <div class="prose">
+        <p><strong>A global components file</strong> that contains only shared components.</p>
+        <p><strong>A folder for each app</strong> with a local component file for product-specific components and screens, plus a pinned project template.</p>
+        <p><strong>Project templates with libraries preloaded.</strong> A designer duplicates the template, adds the Jira ticket number and starts designing.</p>
+        <p>The result is more efficient designers, less duplicate work, better consistency and faster onboarding.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap next">
+    <a href="ai-assistant.html"><p class="label">Next case study</p><h2>An AI assistant learners and instructors trust →</h2></a>
+  </div>
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>© 2026 Alex Gulgren</span><a href="index.html#contact">Get in touch</a></div></footer>
+<script src="site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Product-Led Growth · Alex Gulgren</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400;500&family=Geist+Mono:wght@500&display=swap">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/favicon.png">
+<link rel="stylesheet" href="styles.css">
+<style>:root{padding-block:env(safe-area-inset-top,0px) env(safe-area-inset-bottom,0px)} body{margin:0}</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">Alex Gulgren</a>
+    <nav class="nav" aria-label="Main"><a href="index.html#work">Work</a><a href="index.html#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap cs-hero">
+    <a class="back" href="index.html#work">← All work</a>
+    <p class="label">GoReact · Growth · Lead UX Designer</p>
+    <h1>Turning a sales-led product into a self-serve one</h1>
+    <p class="lede">GoReact's growth was capped by a sales-led model. I designed permission-aware upgrade paths, in-product signage and a free trial so users could discover value and buy on their own. The Advanced package brought in $400K+ in 2025.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="meta">
+      <div><p class="label">Role</p><p>Lead UX Designer, conversion design, design strategy</p></div>
+      <div><p class="label">Team</p><p>1 PM, 6 engineers, 1 QA</p></div>
+      <div><p class="label">Users</p><p>Admins, instructors, learners</p></div>
+      <div><p class="label">Tools</p><p>Figma</p></div>
+    </div>
+  </div>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Outcomes</p><h2>What changed</h2></div>
+      <div class="outcomes">
+        <div><b>$400K+</b><span>Advanced package revenue in 2025</span></div>
+        <div><b>100K+</b><span>users adopted it in the first four months</span></div>
+        <div><b>Self-serve</b><span>upgrades without a sales conversation, with clear plan status for license holders</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Context</p><h2>The problem</h2></div>
+      <div class="prose">
+        <p>Relying on sales meant high acquisition costs, weak trial-to-paid conversion, and friction for anyone who wanted to try the product on their own. After a successful beta of the Advanced features, we found the product was missing:</p>
+        <ul>
+          <li>Intuitive upgrade paths inside the app</li>
+          <li>Clear feature promotion and plan signage</li>
+          <li>Self-serve trial and upgrade flows</li>
+          <li>A way to upgrade without involving sales</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Key decision</p><h2>Design around permissions</h2></div>
+      <div class="prose">
+        <p>GoReact's customers buy in very different ways. A university admin, an instructor with their own license and a student can't all have the same "Upgrade" button. Before designing screens, I mapped who can buy, who can request, and where each person should see signage.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>User type</th><th>Can upgrade</th><th>Where they see signage</th></tr></thead>
+            <tbody>
+              <tr><td>Admin</td><td class="yes">All licenses in the org</td><td>Dashboard, feedback panel, activity editor</td></tr>
+              <tr><td>Instructor with a license</td><td class="yes">Their own license</td><td>Dashboard, feedback panel, activity editor</td></tr>
+              <tr><td>Enterprise instructor with a license</td><td>Can request from an admin</td><td>Feedback panel, activity editor</td></tr>
+              <tr><td>Instructor without a license</td><td>Can request from an admin</td><td>Feedback panel, activity editor</td></tr>
+              <tr><td>Student</td><td>No</td><td>Feedback panel</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>This turned into permission-based workflows: show or hide upgrade signage by role, add purchase and license-request flows, and place each entry point where that user already sees value.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Solution</p><h2>What we shipped</h2></div>
+      <div class="prose">
+        <p><strong>Advanced package signage.</strong> Feature badges, tease walls for advanced features, and free trial signage with its own workflow.</p>
+        <p><strong>Self-serve purchasing.</strong> Purchase and upgrade signage on the dashboard for license holders, end-to-end purchase and upgrade flows, and license management that shows people what they have.</p>
+        <p>Sales still supported enterprise customers, while expansion and feature adoption moved into the product.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap next">
+    <a href="design-system.html"><p class="label">Next case study</p><h2>Rearchitecting a design system for energy management apps →</h2></a>
+  </div>
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>© 2026 Alex Gulgren</span><a href="index.html#contact">Get in touch</a></div></footer>
+<script src="site.js" defer></script>
+</body>
+</html>

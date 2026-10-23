@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>AI Assistant · Alex Gulgren</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400;500&family=Geist+Mono:wght@500&display=swap">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/favicon.png">
+<link rel="stylesheet" href="styles.css">
+<style>:root{padding-block:env(safe-area-inset-top,0px) env(safe-area-inset-bottom,0px)} body{margin:0}</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">Alex Gulgren</a>
+    <nav class="nav" aria-label="Main"><a href="index.html#work">Work</a><a href="index.html#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap cs-hero">
+    <a class="back" href="index.html#work">← All work</a>
+    <p class="label">GoReact · AI · Lead UX Designer</p>
+    <h1>An AI assistant learners and instructors trust</h1>
+    <p class="lede">Instructors were buried in video review and learners waited days for feedback. I led the design of a hybrid AI and instructor feedback system that cut time to feedback by about 72 times and became GoReact's core value proposition.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="meta">
+      <div><p class="label">Role</p><p>Lead UX Designer</p></div>
+      <div><p class="label">Team</p><p>1 PM, 6 engineers, 1 QA</p></div>
+      <div><p class="label">Users</p><p>Learners, instructors, internal and external reviewers</p></div>
+      <div><p class="label">Tools</p><p>Figma, ChatGPT, LeMUR, Highcharts</p></div>
+    </div>
+  </div>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Outcomes</p><h2>What changed</h2></div>
+      <div class="outcomes">
+        <div><b>~72×</b><span>faster feedback for learners</span></div>
+        <div><b>350K+</b><span>users adopted the AI features</span></div>
+        <div><b>$400K+</b><span>revenue in 2024</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Context</p><h2>The problem</h2></div>
+      <div class="prose">
+        <p>GoReact is a skill mastery platform. Learners in nursing, teaching, corporate training and other fields record themselves practicing, and instructors review the video and leave structured feedback.</p>
+        <p>That model depended entirely on instructor time. <strong>Review workloads were more than one instructor could handle</strong>, feedback arrived only when they were available, and the value of the product for both groups depended on how much effort people put in.</p>
+        <blockquote class="quote"><p>"By the time I get feedback, I've already moved on to the next part of the curriculum."</p><cite>Undergraduate nursing student</cite></blockquote>
+        <blockquote class="quote"><p>"Watching videos is time consuming. I end up spending too much effort on basic feedback instead of meaningful guidance."</p><cite>Clinical nursing instructor</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Research</p><h2>What we learned</h2></div>
+      <div class="prose">
+        <p>I ran 10 round tables with champion users, tested sample AI output on real content, and moderated usability sessions during the pilot.</p>
+        <ul>
+          <li><strong>Trust was fragile.</strong> People needed to see how the AI arrived at its feedback before they would rely on it.</li>
+          <li><strong>The strain went both ways.</strong> Instructors felt overloaded and learners felt stuck waiting.</li>
+        </ul>
+        <p>That led to five goals: build trust in AI, give actionable feedback right after practice, cut the time instructors spend on foundational corrections, shorten time to feedback, and increase learner engagement after submitting.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Key decision</p><h2>Choosing the model</h2></div>
+      <div class="prose">
+        <p>I framed three directions for the PM and lead engineers so we could weigh speed against trust openly.</p>
+        <div class="options">
+          <article><p class="label">Option A</p><h3>Instructor-only review</h3><p>Accurate and tailored, but slow and impossible to scale.</p></article>
+          <article><p class="label">Option B</p><h3>Full AI scoring</h3><p>Fast, but users didn't trust it and it wasn't always accurate.</p></article>
+          <article class="chosen"><p class="label" style="color:var(--accent)">Chosen</p><h3>Hybrid AI and instructor</h3><p>Fast and trustworthy. The cost is a learning curve, which we designed onboarding and transparency to address.</p></article>
+        </div>
+        <p>Under the hood, transcripts run through an LLM, which produces analytics and feedback that load into the product. My job was to make each step of that pipeline visible and controllable to the people relying on it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Solution</p><h2>What we shipped</h2></div>
+      <div class="prose">
+        <ul>
+          <li><strong>For learners:</strong> searchable transcripts with speaker and marker filters, analytics on foundational skills, and AI feedback right after they submit, so they can reflect and practice on their own.</li>
+          <li><strong>For instructors:</strong> AI settings at the activity level, so the AI works as a feedback partner and instructors can spend their time on higher-value guidance.</li>
+          <li><strong>For internal teams:</strong> a prompt and feedback editor for creating and managing AI feedback without engineering help.</li>
+        </ul>
+        <p>I designed or reworked five surfaces: the transcript, analytics, instructor configuration, the feedback panel, and the internal prompt editor.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div class="side"><p class="label">Rollout</p><h2>Launching it</h2></div>
+      <div class="prose">
+        <ol class="steps">
+          <li><span><strong>Beta and pilot.</strong> We tested the AI output with champion users.</span></li>
+          <li><span><strong>Advanced package.</strong> We bundled the features into a package to sell.</span></li>
+          <li><span><strong>Free trial.</strong> We gave customer success and sales a trial to promote the features.</span></li>
+        </ol>
+        <p>The AI features became GoReact's core offering and value proposition across the company.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap next">
+    <a href="redesign.html"><p class="label">Next case study</p><h2>Redesigning a platform so it could grow into new markets →</h2></a>
+  </div>
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>© 2026 Alex Gulgren</span><a href="index.html#contact">Get in touch</a></div></footer>
+<script src="site.js" defer></script>
+</body>
+</html>
