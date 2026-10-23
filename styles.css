@@ -63,7 +63,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .site-head .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; font: 700 1.1rem/1 var(--display); text-decoration: none; letter-spacing: -0.02em; }
 .brand::before { content: ""; width: 18px; height: 18px; background: var(--accent); -webkit-mask: var(--sparkle) center / contain no-repeat; mask: var(--sparkle) center / contain no-repeat; transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); }
-.brand { --sparkle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0C12.8 6.4 17.6 11.2 24 12 17.6 12.8 12.8 17.6 12 24 11.2 17.6 6.4 12.8 0 12 6.4 11.2 11.2 6.4 12 0Z'/%3E%3C/svg%3E"); }
+:root { --sparkle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0C12.8 6.4 17.6 11.2 24 12 17.6 12.8 12.8 17.6 12 24 11.2 17.6 6.4 12.8 0 12 6.4 11.2 11.2 6.4 12 0Z'/%3E%3C/svg%3E"); }
 .brand:hover::before, .brand:focus-visible::before { transform: rotate(90deg) scale(1.3); animation: twinkle 1.2s ease-in-out .5s infinite; }
 .brand:active::before { transform: rotate(135deg) scale(.8); transition-duration: .12s; }
 @keyframes twinkle { 50% { opacity: .55; } }
@@ -205,7 +205,11 @@ section { padding-block: clamp(56px, 9vw, 104px); }
 /* Case cards: hard offset shadow, lift on hover */
 .cases { display: grid; gap: clamp(24px, 3.4vw, 36px); }
 .case { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); background: var(--surface); border: 1.5px solid var(--ink); border-radius: 18px; overflow: hidden; text-decoration: none; box-shadow: 6px 6px 0 var(--ink); transition: transform .2s, box-shadow .2s; }
-.case:hover { transform: translate(-3px, -3px); box-shadow: 10px 10px 0 var(--accent); }
+/* Hover shadow color cycles red → teal → yellow down the list of case studies */
+.case { --hover: var(--accent); }
+.case:nth-child(3n + 2) { --hover: var(--teal); }
+.case:nth-child(3n) { --hover: var(--sun); }
+.case:hover { transform: translate(-3px, -3px); box-shadow: 10px 10px 0 var(--hover); }
 .case:hover .go { color: var(--accent-ink); }
 .case:hover .go::after { transform: translateX(4px); }
 .case-body { padding: clamp(28px, 4.5vw, 64px); display: grid; gap: 20px; align-content: center; min-width: 0; }
@@ -213,7 +217,7 @@ section { padding-block: clamp(56px, 9vw, 104px); }
 .case-shift { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-size: 1.05rem; }
 .case-shift s { color: var(--muted); text-decoration-color: color-mix(in srgb, var(--accent) 70%, transparent); text-decoration-thickness: 1.5px; }
 .case-shift span { font-weight: 600; color: var(--accent-ink); }
-.case-shift span::before { content: "→ "; }
+.case-shift s + span::before { content: "→ "; }
 .case h3 { font-size: clamp(1.8rem, 3.2vw, 2.7rem); max-width: 16ch; }
 .case p { color: var(--muted); max-width: 46ch; }
 .spec { display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; margin: 4px 0 0; font-size: 0.9rem; }
@@ -233,8 +237,69 @@ section { padding-block: clamp(56px, 9vw, 104px); }
 .shot-img { position: absolute; left: 0; top: 50%; translate: 0 -50%; width: 70%; height: auto; transform-origin: left center; transition: transform .4s cubic-bezier(.2, .8, .2, 1); }
 @media (max-width: 860px) { .case-art.shot { aspect-ratio: 1.15; min-height: 0; } }
 /* Before → after: the old screen sits exactly over the new laptop's screen; the divider follows the pointer */
-.compare { display: grid; place-items: center; }
-.cmp { --s: .5; position: relative; width: 94%; }
+/* One phone, shown at full card height and centered, on the same light grey as the AI Assistant thumbnail. The photo's own grey
+   background is cut away by a mask made from the phone's outline, so the dots show all around it */
+.case-art.photo { padding: 0; overflow: hidden; background: #f7f7f7; }
+/* Dots behind the phone, more alive than a flat grid: the hero's ink dots gather in two soft clusters on a diagonal (top left, lower
+   right) and a smaller cluster of finer red dots sits top right; both stay still so the demo is the only thing moving.
+   This card stays light grey in dark mode too (it matches the photo), so the ink dots use the light theme's ink rather than var(--ink).
+   The photo and overlays sit at z-index 1, so the red layer (::after, painted last) stays behind them */
+.case-art.photo::before { display: block; opacity: 1; background-image: radial-gradient(rgb(27 21 21 / .24) 1.2px, transparent 1.4px); background-size: 22px 22px;
+  -webkit-mask: radial-gradient(58% 52% at 10% 18%, #000 28%, transparent), radial-gradient(55% 50% at 92% 84%, #000 22%, transparent);
+  mask: radial-gradient(58% 52% at 10% 18%, #000 28%, transparent), radial-gradient(55% 50% at 92% 84%, #000 22%, transparent); }
+.case-art.photo::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background-image: radial-gradient(var(--accent) 1px, transparent 1.25px); background-size: 13px 13px; opacity: .55;
+  -webkit-mask: radial-gradient(30% 26% at 86% 16%, #000 15%, transparent); mask: radial-gradient(30% 26% at 86% 16%, #000 15%, transparent); }
+.case-art.photo > img, .photo-guide { z-index: 1; }
+.case-art.photo > img { position: absolute; left: 50%; bottom: 0; height: 100%; width: auto; max-width: none; translate: -50% 0; transform-origin: center bottom; transition: transform .4s cubic-bezier(.2, .8, .2, 1);
+  -webkit-mask: url(images/projects/onboarding-phone-mask.png) center / 100% 100% no-repeat; mask: url(images/projects/onboarding-phone-mask.png) center / 100% 100% no-repeat; }
+.case:hover .case-art.photo > img { transform: scale(1.03); }
+/* The Setup Guide demo on the PIN screen. .photo-guide matches the phone photo's box (857×1200). A cursor clicks "setup guide",
+   the screen dims and the guide pops up, the cursor clicks Next through the 8 steps (each swipes left; the dots switch on the click),
+   then closes the guide and the loop starts over. The guide's size and spot on the screen were measured from the original mockup.
+   Timeline (25.8s): link click, guide opens at 1.3s, 7 Next clicks 2.8s apart from 2.4s, close at 23.6s.
+   Every keyframe below shares it, so the cursor and the carousel stay in sync. */
+.photo-guide { position: absolute; left: 50%; bottom: 0; height: 100%; aspect-ratio: 857 / 1200; translate: -50% 0; pointer-events: none; transform-origin: center bottom; transition: transform .4s cubic-bezier(.2, .8, .2, 1); }
+.guide-dim { position: absolute; left: 15.73%; top: 11.86%; width: 69.35%; height: 88.14%; border-radius: 9% 9% 0 0 / 5% 5% 0 0; background: rgba(0, 0, 0, .62); opacity: 0; animation: guide-dim 25.8s ease-out infinite; }
+.guide-modal { position: absolute; left: 21.42%; top: 37.03%; width: 57.97%; height: 57.15%; border-radius: 3.7% / 2.7%; overflow: hidden; opacity: 0; box-shadow: 0 10px 30px rgba(0, 0, 0, .45); animation: guide-modal 25.8s cubic-bezier(.2, .8, .2, 1) infinite; }
+.guide-panel { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.guide-view { position: absolute; left: 0; width: 100%; overflow: hidden; }
+.guide-slides { top: 12.444%; height: 73.778%; }
+.guide-dots { top: 86.222%; height: 13.778%; }
+.guide-strip { display: flex; width: 800%; height: 100%; }
+.guide-strip img { display: block; width: 12.5%; height: 100%; flex: none; }
+.guide-slides .guide-strip { animation: guide-slide 25.8s cubic-bezier(.65, 0, .35, 1) infinite; }
+.guide-dots .guide-strip { animation: guide-dots 25.8s linear infinite; }
+/* The margin puts the pointer's tip (not its box corner) on the animated left/top point */
+.guide-cursor { position: absolute; left: 53.3%; top: 63.55%; width: 6.5%; aspect-ratio: 1; margin: -.68% 0 0 -1.08%; animation: guide-cursor 25.8s ease-in-out infinite; }
+.guide-cursor svg { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; overflow: visible; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .45)); }
+.guide-cursor path { fill: #fff; stroke: #111; stroke-width: 1.6; stroke-linejoin: round; }
+.guide-ripple { position: absolute; left: 16.7%; top: 10.4%; width: 160%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .85); opacity: 0; animation: guide-ripple 25.8s ease-out infinite; }
+.case:hover .photo-guide { transform: scale(1.03); }
+/* At rest (not hovered, or on touch screens not on screen) the demo is off: the PIN screen shows and the cursor is hidden.
+   Engaging the card starts the loop from the beginning */
+.case:not(:hover):not(.is-playing) :is(.guide-dim, .guide-modal, .guide-strip, .guide-cursor, .guide-ripple, .fx-caret) { animation: none; }
+.case:not(:hover):not(.is-playing) .guide-cursor { opacity: 0; }
+@keyframes guide-dim { 0%, 5.039% { opacity: 0; } 6.202%, 91.667% { opacity: 1; } 92.636%, 100% { opacity: 0; } }
+@keyframes guide-modal { 0%, 5.039% { opacity: 0; scale: .94; } 6.202%, 91.667% { opacity: 1; scale: 1; } 92.636%, 100% { opacity: 0; scale: .96; } }
+@keyframes guide-cursor { 0% { left: 53.3%; top: 63.55%; scale: 1; opacity: 0; } 1.55% { left: 53.3%; top: 63.55%; scale: 1; opacity: 1; } 3.876% { left: 48.3%; top: 58.64%; scale: 1; opacity: 1; } 4.341% { left: 48.3%; top: 58.64%; scale: 0.78; opacity: 1; } 5.039% { left: 48.3%; top: 58.64%; scale: 1; opacity: 1; } 8.527% { left: 71.67%; top: 93.45%; scale: 1; opacity: 1; } 14.186% { left: 71.67%; top: 93.45%; scale: 1; opacity: 1; } 17.132% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 17.984% { left: 67.3%; top: 89.48%; scale: 0.78; opacity: 1; } 18.643% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 25.039% { left: 71.67%; top: 93.45%; scale: 1; opacity: 1; } 27.984% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 28.837% { left: 67.3%; top: 89.48%; scale: 0.78; opacity: 1; } 29.496% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 35.891% { left: 71.67%; top: 93.45%; scale: 1; opacity: 1; } 38.837% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 39.69% { left: 67.3%; top: 89.48%; scale: 0.78; opacity: 1; } 40.349% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 46.744% { left: 71.67%; top: 93.45%; scale: 1; opacity: 1; } 49.69% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 50.543% { left: 67.3%; top: 89.48%; scale: 0.78; opacity: 1; } 51.202% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 57.597% { left: 71.67%; top: 93.45%; scale: 1; opacity: 1; } 60.543% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 61.395% { left: 67.3%; top: 89.48%; scale: 0.78; opacity: 1; } 62.054% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 68.45% { left: 71.67%; top: 93.45%; scale: 1; opacity: 1; } 71.395% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 72.248% { left: 67.3%; top: 89.48%; scale: 0.78; opacity: 1; } 72.907% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 79.302% { left: 71.67%; top: 93.45%; scale: 1; opacity: 1; } 82.248% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 83.101% { left: 67.3%; top: 89.48%; scale: 0.78; opacity: 1; } 83.76% { left: 67.3%; top: 89.48%; scale: 1; opacity: 1; } 87.209% { left: 71.67%; top: 93.45%; scale: 1; opacity: 1; } 90.698% { left: 73.52%; top: 41.48%; scale: 1; opacity: 1; } 91.473% { left: 73.52%; top: 41.48%; scale: 0.78; opacity: 1; } 92.132% { left: 73.52%; top: 41.48%; scale: 1; opacity: 1; } 95.349% { left: 53.3%; top: 63.55%; scale: 1; opacity: 0; } 100% { left: 53.3%; top: 63.55%; scale: 1; opacity: 0; } }
+@keyframes guide-ripple { 0% { opacity: 0; scale: .3; } 4.302% { opacity: 0; scale: .3; } 4.341% { opacity: 1; scale: .3; } 6.085% { opacity: 0; scale: 1; } 17.946% { opacity: 0; scale: .3; } 17.984% { opacity: 1; scale: .3; } 19.729% { opacity: 0; scale: 1; } 28.798% { opacity: 0; scale: .3; } 28.837% { opacity: 1; scale: .3; } 30.581% { opacity: 0; scale: 1; } 39.651% { opacity: 0; scale: .3; } 39.69% { opacity: 1; scale: .3; } 41.434% { opacity: 0; scale: 1; } 50.504% { opacity: 0; scale: .3; } 50.543% { opacity: 1; scale: .3; } 52.287% { opacity: 0; scale: 1; } 61.357% { opacity: 0; scale: .3; } 61.395% { opacity: 1; scale: .3; } 63.14% { opacity: 0; scale: 1; } 72.209% { opacity: 0; scale: .3; } 72.248% { opacity: 1; scale: .3; } 73.992% { opacity: 0; scale: 1; } 83.062% { opacity: 0; scale: .3; } 83.101% { opacity: 1; scale: .3; } 84.845% { opacity: 0; scale: 1; } 91.434% { opacity: 0; scale: .3; } 91.473% { opacity: 1; scale: .3; } 93.217% { opacity: 0; scale: 1; } 100% { opacity: 0; scale: 1; } }
+@keyframes guide-slide { 0% { transform: translateX(-0%); } 18.419% { transform: translateX(-0%); } 20.155% { transform: translateX(-12.5%); } 29.271% { transform: translateX(-12.5%); } 31.008% { transform: translateX(-25%); } 40.124% { transform: translateX(-25%); } 41.86% { transform: translateX(-37.5%); } 50.977% { transform: translateX(-37.5%); } 52.713% { transform: translateX(-50%); } 61.829% { transform: translateX(-50%); } 63.566% { transform: translateX(-62.5%); } 72.682% { transform: translateX(-62.5%); } 74.419% { transform: translateX(-75%); } 83.535% { transform: translateX(-75%); } 85.271% { transform: translateX(-87.5%); } 100% { transform: translateX(-87.5%); } }
+@keyframes guide-dots { 0% { transform: translateX(-0%); } 18.419% { transform: translateX(-0%); } 18.457% { transform: translateX(-12.5%); } 29.271% { transform: translateX(-12.5%); } 29.31% { transform: translateX(-25%); } 40.124% { transform: translateX(-25%); } 40.163% { transform: translateX(-37.5%); } 50.977% { transform: translateX(-37.5%); } 51.016% { transform: translateX(-50%); } 61.829% { transform: translateX(-50%); } 61.868% { transform: translateX(-62.5%); } 72.682% { transform: translateX(-62.5%); } 72.721% { transform: translateX(-75%); } 83.535% { transform: translateX(-75%); } 83.574% { transform: translateX(-87.5%); } 100% { transform: translateX(-87.5%); } }
+@media (prefers-reduced-motion: reduce) { .guide-strip, .guide-ripple, .guide-dim, .guide-modal { animation: none; } .guide-cursor { display: none; } }
+/* Icon badges in the open space beside the phone, styled like the site's stickers: plug (hardware), signal (connection), check (done).
+   Sized off the card's width so they fit the side margins */
+.case-art.photo { container-type: inline-size; }
+.photo-tag { position: absolute; z-index: 1; display: grid; place-items: center; width: clamp(30px, 8cqw, 46px); aspect-ratio: 1; border: 1.5px solid var(--ink); border-radius: 30%; box-shadow: 2px 2px 0 var(--ink); pointer-events: none; }
+.photo-tag svg { width: 58%; height: 58%; max-width: none; filter: none; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.photo-tag circle { fill: currentColor; stroke: none; }
+.photo-tag.t1 { top: 17%; left: 9%; rotate: -8deg; background: var(--accent); color: var(--on-accent); }
+.photo-tag.t2 { top: 46%; right: 9%; rotate: 6deg; background: var(--surface); color: var(--ink); border-radius: 50%; }
+.photo-tag.t3 { top: 73%; left: 10%; rotate: -4deg; background: var(--sun); color: #1b1515; }
+@media (max-width: 860px) { .case-art.photo { aspect-ratio: 1.15; min-height: 0; } }
+/* The laptop is wider than the card (125%, centered) and sits on the bottom edge nudged 9% of its own height lower, so its sides
+   and base run off the card like the other mockups, while the whole screen and slider stay in view at any card shape */
+.compare { display: block; }
+.cmp { --s: .5; position: absolute; left: -12.5%; bottom: 0; width: 125%; translate: 0 9%; }
 .cmp-new { display: block; width: 100%; height: auto; }
 .cmp-old { position: absolute; left: 14.254%; top: 7.912%; width: 72.075%; height: 76.41%; clip-path: inset(0 calc((1 - var(--s)) * 100%) 0 0); }
 .cmp-old img { display: block; width: 100%; height: 100%; }
@@ -245,6 +310,13 @@ section { padding-block: clamp(56px, 9vw, 104px); }
 .cmp-before { left: calc(14.254% + 10px); background: var(--surface); color: var(--ink); opacity: calc(var(--s) * 4 - .6); }
 .cmp-after { right: calc(13.671% + 10px); background: var(--accent); color: #fff; opacity: calc((1 - var(--s)) * 4 - .6); }
 .compare .cmp-new, .compare .cmp-old { transition: none; }
+/* The brand sparkle, scattered around the laptop: still at rest, a quarter turn on hover like the one by the name */
+.cmp-spark { position: absolute; z-index: 1; aspect-ratio: 1; background: var(--accent); -webkit-mask: var(--sparkle) center / contain no-repeat; mask: var(--sparkle) center / contain no-repeat; pointer-events: none; transition: rotate .6s cubic-bezier(.34, 1.56, .64, 1); }
+.cmp-spark.s1 { width: 3.4%; top: -6%; right: 18%; }
+.cmp-spark.s2 { width: 1.9%; top: -1.5%; right: 15%; opacity: .7; }
+.cmp-spark.s3 { width: 2.4%; top: -4%; left: 19%; }
+.case:hover .cmp-spark { rotate: 90deg; }
+@media (prefers-reduced-motion: reduce) { .cmp-spark { animation: none; transition: none; } }
 .case:hover .shot-img { transform: scale(1.03); }
 
 /* Motion cards: abstract blocks, not real UI (see card-motion.js). Without the script the finished frame shows. */
@@ -304,7 +376,7 @@ section { padding-block: clamp(56px, 9vw, 104px); }
 .art-soft { fill: var(--accent-soft); }
 
 /* More work */
-.more { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.more { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .more article { border: 1.5px dashed var(--ink); border-radius: 14px; padding: 24px; display: grid; gap: 12px; align-content: start; min-width: 0; background: var(--surface); }
 .more h3 { font-size: 1.25rem; }
 .more p { color: var(--muted); font-size: 0.95rem; }
@@ -419,3 +491,33 @@ td.yes { color: var(--accent-ink); font-weight: 500; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* Password form on protected case studies */
+.unlock { display: grid; gap: 10px; max-width: 26rem; margin-top: 8px; }
+.unlock-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.unlock-row input { flex: 1 1 12rem; min-width: 0; padding: 11px 16px; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--surface); color: var(--ink); font: 400 1rem/1.2 var(--body); box-shadow: 3px 3px 0 var(--ink); }
+.unlock-row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.unlock-msg { min-height: 1.4em; font-size: .9rem; color: var(--accent-ink); }
+.unlock-help { font-size: .9rem; color: var(--muted); }
+.more .go { justify-self: start; text-decoration: none; color: var(--ink); }
+.more .go:hover { color: var(--accent-ink); }
+
+/* Cell Kit card: a system diagram, since the case study is locked. Two apps: KEM PRO (dealers, desktop + mobile, with the auto-renew
+   toggle) and KEM (homeowners, mobile, with renewal status and a contact-dealer button, arrowing up to KEM PRO since dealers take
+   payment). A renewal travels from KEM PRO to Partner HQ, then down to Salesforce, passing behind each box. Still at rest; the
+   flow runs while the card is engaged */
+.flow-label { font: 600 10.5px/1 var(--mono); letter-spacing: .06em; text-anchor: middle; }
+.flow-title { font: 700 13px/1 var(--mono); letter-spacing: .04em; }
+.flow-role { font: 500 9.5px/1 var(--mono); letter-spacing: .07em; }
+.case:is(:hover, .is-playing) .flow-dot { animation: flow-run 3s cubic-bezier(.5, 0, .3, 1) infinite; }
+.case:is(:hover, .is-playing) .flow-wire { animation: flow-march .8s linear infinite; }
+@keyframes flow-run { 0% { transform: translate(0, 0); opacity: 0; } 6% { opacity: 1; } 40% { transform: translate(121px, 0); } 72% { transform: translate(121px, 134px); opacity: 1; } 80%, 100% { transform: translate(121px, 134px); opacity: 0; } }
+@keyframes flow-march { to { stroke-dashoffset: -10; } }
+@media (prefers-reduced-motion: reduce) { .flow-dot, .flow-wire { animation: none !important; } }
+/* Lock badge on password-protected case cards */
+.lock-tag { position: absolute; z-index: 3; top: clamp(12px, 2vw, 18px); right: clamp(12px, 2vw, 18px); display: grid; place-items: center; width: 36px; height: 36px; border: 1.5px solid var(--ink); border-radius: 50%; background: var(--sun); box-shadow: 2px 2px 0 var(--ink); rotate: 8deg; }
+.case-art .lock-tag svg { position: static; width: 18px; height: 18px; max-width: none; filter: none; fill: none; stroke: #1b1515; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Skill tags on the case cards: show the range of the work at a glance */
+.case-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.case-tags li { padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px; font: 500 0.7rem/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); background: var(--paper); }

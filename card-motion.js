@@ -1,8 +1,18 @@
+// Card demos play only when someone engages with them, so the page is calm at rest. With a mouse that's hover (CSS :hover);
+// on touch screens, which can't hover, a card counts as engaged while at least 40% of it is on screen, marked with .is-playing.
+// Cards marked data-autoplay (the onboarding demo) play whenever they're on screen, on every device.
+const isEngaged = (card) => card.matches(':hover') || card.classList.contains('is-playing');
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => e.target.classList.toggle('is-playing', e.isIntersecting)), { threshold: 0.4 });
+  const cards = matchMedia('(hover: hover)').matches ? '.case[data-autoplay]' : '.case';
+  document.querySelectorAll(cards).forEach((card) => io.observe(card));
+}
+
 // Motion on the AI Assistant case card, in the same hand-built style as the hero graphic.
 // Each 8 second loop: a transcript search types its query and the matches light up, while a
 // playhead runs along the feedback timeline, dropping AI markers and filler-word dots as it passes
 // them and opening an AI comment at the first marker, and the speaking-pace line draws in step.
-// Then everything resets and plays again.
+// Then everything resets and plays again. It plays while the card is engaged; otherwise it rests on the finished frame.
 (() => {
   const search = document.querySelector('.fx-search');
   const timeline = document.querySelector('.fx-timeline');
@@ -16,18 +26,17 @@
   const lines = [...bubble.querySelectorAll('.fx-lines i')];
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  // Only run while the card is on screen and the tab is visible
-  const card = search.closest('.case-art');
-  const ready = async () => {
-    for (;;) {
-      const r = card.getBoundingClientRect();
-      if (!document.hidden && r.bottom > 0 && r.top < innerHeight) return;
-      await wait(400);
-    }
-  };
-
   const on = (el, yes = true) => el.classList.toggle('on', yes);
   const all = [...marks, ...markers.map(([el]) => el), ...dots.map(([el]) => el), bubble, ...lines];
+  const set = (q, p) => { search.style.setProperty('--q', q); timeline.style.setProperty('--p', p); pace?.style.setProperty('--p', p); };
+
+  // Between loops: if nobody is engaging with the card, show the finished frame and wait
+  const card = search.closest('.case');
+  const ready = async () => {
+    if (isEngaged(card) && !document.hidden) return;
+    all.forEach((el) => on(el)); set(1, 1);
+    while (!isEngaged(card) || document.hidden) await wait(150);
+  };
 
   async function typeQuery() {
     for (let n = 0; n <= 5; n++) {
@@ -63,9 +72,7 @@
     for (;;) {
       await ready();
       all.forEach((el) => on(el, false));
-      search.style.setProperty('--q', 0);
-      timeline.style.setProperty('--p', 0);
-      pace?.style.setProperty('--p', 0);
+      set(0, 0);
       await wait(400);
       await Promise.all([typeQuery(), playTimeline()]);
       await wait(1400);
