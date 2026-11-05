@@ -60,6 +60,8 @@ COPY = {
         '>Increased instructor efficiency<': '>$400K+ in revenue in 2024<',
     },
     'onboarding': {'>(Actively tracking)<': '>20% fewer related support cases in the first month<'},
+    # Rehlko title, matching the resume
+    'about': {'<strong class="framer-text">Senior Product Designer</strong>': '<strong class="framer-text">UX/UI Designer</strong>'},
     'rearchitecture': {'>Improved consistency &amp; scalability<': '>One naming system across 30+ projects<'},
     'contact': {
         '>Shoot me an email, I look forward to chatting!</p>':
