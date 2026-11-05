@@ -34,6 +34,22 @@ TYPEWRITER = '''<script>
 })();
 </script>'''
 
+# Where the site is hosted; link previews (LinkedIn, Slack) need absolute URLs
+SITE = 'https://alexgulgren.netlify.app'
+TITLES = {
+    'index': 'Alex Gulgren · Senior Product Designer',
+    'about': 'About · Alex Gulgren',
+    'contact': 'Contact · Alex Gulgren',
+    'ai-assistant': 'AI Assistant Case Study · Alex Gulgren',
+    'onboarding': 'Remote Monitoring Onboarding Case Study · Alex Gulgren',
+    'auto-renewal': 'Cell Kit Auto-Renewal Case Study · Alex Gulgren',
+    'rearchitecture': 'Design System Rearchitecture Case Study · Alex Gulgren',
+    'plg': 'Product-Led Growth Case Study · Alex Gulgren',
+    'product-marketing': 'Product Marketing Case Study · Alex Gulgren',
+    'redesign': 'Product Redesign Case Study · Alex Gulgren',
+}
+TYPOS = {'Role out &amp; Iterations': 'Roll out &amp; Iterations', "team and it's 3 apps": 'team and its 3 apps'}
+
 os.makedirs(os.path.join(OUT, 'assets'), exist_ok=True)
 pages = {p: open(os.path.join(SRC, f'{p}.html'), encoding='utf-8').read() for p in PAGES}
 
@@ -92,6 +108,16 @@ for name, t in pages.items():
                lambda m: f"url({m.group(1)}data:image/svg+xml,{urllib.parse.quote(m.group(2), safe=' %=:/;,.()-_')}{m.group(1)})", t)
     # The nav's contact icon navigated with Framer's JS and has no href of its own
     t = t.replace('<a class="framer-9ZrjM ', '<a href="contact.html" class="framer-9ZrjM ')
+    # Page titles, share previews and copy fixes
+    title = TITLES[name]
+    page_url = SITE + '/' + ('' if name == 'index' else name)
+    t = re.sub(r'<title>[^<]*</title>', f'<title>{title}</title>', t, count=1)
+    t = re.sub(r'(<meta (?:property="og:title"|name="twitter:title") content=")[^"]*"', rf'\g<1>{title}"', t)
+    t = re.sub(r'(<meta property="og:url" content=")[^"]*"', rf'\g<1>{page_url}"', t)
+    t = re.sub(r'(<link rel="canonical" href=")[^"]*"', rf'\g<1>{page_url}"', t)
+    t = re.sub(r'(<meta (?:property="og:image"|name="twitter:image") content=")(assets/[^"]*)"', rf'\g<1>{SITE}/\2"', t)
+    for wrong, right in TYPOS.items():
+        t = t.replace(wrong, right)
     if 'class="styles-module_blinkingCursor' in t:
         t = t.replace('</body>', TYPEWRITER + '</body>', 1)
     open(os.path.join(OUT, f'{name}.html'), 'w', encoding='utf-8').write(t)
