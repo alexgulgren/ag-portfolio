@@ -50,6 +50,24 @@ TITLES = {
 }
 TYPOS = {'Role out &amp; Iterations': 'Roll out &amp; Iterations', "team and it's 3 apps": 'team and its 3 apps'}
 
+# Copy edits beyond the Framer source: results from the resume, email and resume links
+EMAIL = 'alexgulgren@gmail.com'
+RESUME = 'Alex-Gulgren-Resume.pdf'
+COPY = {
+    'ai-assistant': {
+        '>Reduced feedback turnaround time<': '>Feedback delivered ~72x faster<',
+        '>Decreased learner time to value<': '>Adopted by 350,000+ users<',
+        '>Increased instructor efficiency<': '>$400K+ in revenue in 2024<',
+    },
+    'onboarding': {'>(Actively tracking)<': '>20% fewer related support cases in the first month<'},
+    'rearchitecture': {'>Improved consistency &amp; scalability<': '>One naming system across 30+ projects<'},
+    'contact': {
+        '>Shoot me an email, I look forward to chatting!</p>':
+            f'>Shoot me an email at <a class="framer-text" href="mailto:{EMAIL}">{EMAIL}</a>, '
+            f'I look forward to chatting! Or <a class="framer-text" href="{RESUME}" target="_blank">download my resume</a>.</p>',
+    },
+}
+
 os.makedirs(os.path.join(OUT, 'assets'), exist_ok=True)
 pages = {p: open(os.path.join(SRC, f'{p}.html'), encoding='utf-8').read() for p in PAGES}
 
@@ -118,6 +136,10 @@ for name, t in pages.items():
     t = re.sub(r'(<meta (?:property="og:image"|name="twitter:image") content=")(assets/[^"]*)"', rf'\g<1>{SITE}/\2"', t)
     for wrong, right in TYPOS.items():
         t = t.replace(wrong, right)
+    for old, new in COPY.get(name, {}).items():
+        if old not in t:
+            sys.exit(f'{name}: copy edit target not found: {old[:60]}')
+        t = t.replace(old, new)
     if 'class="styles-module_blinkingCursor' in t:
         t = t.replace('</body>', TYPEWRITER + '</body>', 1)
     open(os.path.join(OUT, f'{name}.html'), 'w', encoding='utf-8').write(t)
