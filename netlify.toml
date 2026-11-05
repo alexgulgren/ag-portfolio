@@ -1,2 +1,6 @@
 [build]
   publish = "site"
+
+# Serve the pages exactly as built; Netlify's HTML rewriting mangles the inline SVG icons
+[build.processing.html]
+  pretty_urls = false

@@ -1,5 +1,5 @@
 """Turn the downloaded Framer pages into a self-contained static site."""
-import hashlib, html, os, re, sys, urllib.request, concurrent.futures as cf
+import hashlib, html, os, re, sys, urllib.parse, urllib.request, concurrent.futures as cf
 
 SRC, OUT = sys.argv[1], sys.argv[2]
 PAGES = ['index', 'about', 'contact', 'ai-assistant', 'onboarding', 'auto-renewal',
@@ -86,6 +86,12 @@ for name, t in pages.items():
                r'<form name="contact" action="thanks.html" data-netlify="true" netlify-honeypot="website" \1>'
                r'<input type="hidden" name="form-name" value="contact">', t, count=1)
     t = t.replace('placeholder="jane@framer.com"', 'placeholder="jane@example.com"')
+    # Icons are inline SVG data URIs with raw < > inside style attributes; hosts that rewrite HTML
+    # (Netlify's pretty URLs) mangle them, so percent-encode the SVG
+    t = re.sub(r"""url\((['"])data:image/svg\+xml,(.*?)\1\)""",
+               lambda m: f"url({m.group(1)}data:image/svg+xml,{urllib.parse.quote(m.group(2), safe=' %=:/;,.()-_')}{m.group(1)})", t)
+    # The nav's contact icon navigated with Framer's JS and has no href of its own
+    t = t.replace('<a class="framer-9ZrjM ', '<a href="contact.html" class="framer-9ZrjM ')
     if 'class="styles-module_blinkingCursor' in t:
         t = t.replace('</body>', TYPEWRITER + '</body>', 1)
     open(os.path.join(OUT, f'{name}.html'), 'w', encoding='utf-8').write(t)
